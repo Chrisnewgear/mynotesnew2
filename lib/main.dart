@@ -19,8 +19,8 @@ void main() async {
       routes: {
         '/login/': (context) => const LoginView(),
         '/register/': (context) => const RegisterView(),
-        //'/verify-email/': (context) => const VeryfyEmailView(),
-        //'/home': (context) => const HomePage(),
+        '/verify-email/': (context) => const VeryfyEmailView(),
+        '/home': (context) => const HomePage(),
       },
     ),
   );
@@ -41,15 +41,13 @@ class HomePage extends StatelessWidget {
             final user = FirebaseAuth.instance.currentUser;
             if(user != null) {
               if(user.emailVerified){
-                //return const Text('Email is verified');
-                print('email is verified');
+                return const NotesView();
               }else{
                 return const VeryfyEmailView();
               }
             }else{
               return const LoginView();
             }
-            return const Text('Done');
           default:
             return const CircularProgressIndicator();
         }
@@ -58,3 +56,21 @@ class HomePage extends StatelessWidget {
   }
 }
 
+class NotesView extends StatefulWidget {
+  const NotesView({super.key});
+
+  @override
+  State<NotesView> createState() => _NotesViewState();
+}
+
+class _NotesViewState extends State<NotesView> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Main UI'),
+      ),
+      body: const Text('Main UI'),
+    );
+  }
+}
